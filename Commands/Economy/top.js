@@ -1,7 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
 const Database = require("../../Schemas/purse")
-const { client } = require("../../index")
-
 
 module.exports = {
     data: new SlashCommandBuilder()
