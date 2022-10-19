@@ -1,4 +1,3 @@
-const { EmbedBuilder } = require("discord.js")
 const Database = require("../Schemas/levels")
 
 module.exports = {

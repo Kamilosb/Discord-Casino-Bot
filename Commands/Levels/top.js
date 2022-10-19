@@ -16,7 +16,6 @@ module.exports = {
             embed.addFields(
                 { name: `${usersArray[x].UserName}` + `(Id: ${usersArray[x].User})`, value: `${usersArray[x].Exp}`}
             )
-
         }
         interaction.reply({
             embeds: [embed]
