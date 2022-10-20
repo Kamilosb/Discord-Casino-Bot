@@ -11,7 +11,6 @@ module.exports = {
         let userData = await Database.findOne({User: message.author.id})
         if(message.author.bot) return
         if(!userData) {
-            embed.setTitle("Posiadasz ").setDescription("0 Expa")
             userData = await Database.create({ UserName: message.author.username, User: message.author.id, Exp: 0, GuildId: interaction.guild.id, MessageCount: 0})
             interaction.reply({
                 embeds: [embed]
