@@ -12,9 +12,6 @@ module.exports = {
         if(message.author.bot) return
         if(!userData) {
             userData = await Database.create({ UserName: message.author.username, User: message.author.id, Exp: 0, GuildId: message.guild.id, MessageCount: 0})
-            interaction.reply({
-                embeds: [embed]
-            })
         }
         await Database.findOneAndUpdate({ User: message.author.id}, { $set: {Exp: parseInt(userData.Exp) + random(20, 30)}})
         await Database.findOneAndUpdate({ User: message.author.id}, { $set: {MessageCount: parseInt(userData.MessageCount) + 1}})
