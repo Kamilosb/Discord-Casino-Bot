@@ -15,7 +15,16 @@ module.exports = {
     async execute(interaction) {
         const { options } = interaction
         const target = options.getMember("nick") || interaction.user
-        
+
+        function roundUp(num, precision) {
+            precision = Math.pow(10, precision)
+            return Math.ceil(num * precision) / precision
+        }
+
+        function calculateLevel(xpAmount) { 
+            return parseInt(xpAmount)/100
+        }
+
         if(target == interaction.user) { //jeśli nasz poziom
             const targetId = target.id
             let userData = await Database.findOne({User: targetId})
@@ -26,18 +35,17 @@ module.exports = {
                     embeds: [embed]
                 })
             } else {
+                let level = calculateLevel(userData.Exp)
+                let reqExp = roundUp(level, 0) * 100
                 embed.setTitle("Posiadasz ").setDescription(userData.Exp + " expa\noraz " + `${userData.MessageCount} wysłanych wiadomości`)
+                embed.addFields(
+                    { name: `Poziom` + " -> " + `${level | 0}`, value:`${userData.Exp}` + "/" + `${reqExp}`}
+                )
                 interaction.reply({
                     embeds: [embed]
                 })
             }
         } else { //jeśli czyiś poziom
-            if(options.getMember("nick").user.bot) {
-                interaction.reply({
-                    content: "Boty nie zbierają expa!"
-                })
-                return
-            }
             const target = options.getMember("nick")
             let userData = await Database.findOne({User: target.id})
             if(!userData) {
@@ -47,7 +55,12 @@ module.exports = {
                     embeds: [embed]
                 })
             } else {
+                let level = calculateLevel(userData.Exp)
+                let reqExp = roundUp(level, 0) * 100
                 embed.setTitle(`${target.user.username} posiada `).setDescription(userData.Exp + " expa\noraz " + `${userData.MessageCount} wysłanych wiadomości`)
+                embed.addFields(
+                    { name: "Jego poziom-> " + `${level | 0}`, value:`${userData.Exp}` + "/" + `${reqExp}`}
+                )
                 interaction.reply({
                     embeds: [embed]
                 })

@@ -12,11 +12,29 @@ module.exports = {
         embed.setTitle("Użytkownicy serwera z największą ilością expa: ")
         embed.setDescription("===============================================")
 
+        // function calculateRequiredExp(xpAmount) {
+        //     level = parseInt(level)
+        //     console.log(level + " -> " + (level * 100) + ((level - 1) * 100))
+        //     return (level * 100) + ((level - 1) * 100)
+        // }
+
+        function roundUp(num, precision) {
+            precision = Math.pow(10, precision)
+            return Math.ceil(num * precision) / precision
+        }
+
+        function calculateLevel(xpAmount) { 
+            return parseInt(xpAmount)/100
+        }
+
         for(x = 0; x < 5; x++) {
+            let level = calculateLevel(usersArray[x].Exp)
+            let reqExp = roundUp(level, 0) * 100
             embed.addFields(
-                { name: `${usersArray[x].UserName}` + `(Id: ${usersArray[x].User})`, value: `${usersArray[x].Exp}`}
+                { name: `${usersArray[x].UserName}` + " -> " + `${level | 0}`, value:`${usersArray[x].Exp}` + "/" + `${reqExp}`}
             )
         }
+
         interaction.reply({
             embeds: [embed]
         })
