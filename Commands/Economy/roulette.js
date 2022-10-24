@@ -31,11 +31,11 @@ module.exports = {
     ),
 
     async execute(interaction) { 
-        await function getRandom(min, max) { // min and max included 
+        function getRandom(min, max) { // min and max included 
             return Math.floor(Math.random() * (max - min + 1) + min)
         }
         
-        await function delay(n){ // w sekundach
+        function delay(n){ // w sekundach
             return new Promise(function(resolve){
                 setTimeout(resolve,n*1000)
             })
