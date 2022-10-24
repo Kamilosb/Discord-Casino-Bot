@@ -72,8 +72,8 @@ module.exports = {
         })
 
         // animacja etc.
-        let spinCount = getRandom(10, 10)
-        let firstSpin = getRandom(36, 36)
+        let spinCount = getRandom(4, 15)
+        let firstSpin = getRandom(5, 36)
 
         let repeated = new Array(spinCount + firstSpin).fill(colorsArray).flat()
         let displayColorsArray = new Array()
@@ -83,8 +83,7 @@ module.exports = {
             await delay(0.5)
             displayColorsArray.unshift(repeated[x])
             displayColorsArray.length = 5
-            embed.setDescription("```---------------↓---------------\n       " + displayColorsArray.join(" ") + "\n---------------↑---------------```")
-            await console.log(repeated[x])
+            await embed.setDescription("```---------------↓---------------\n       " + displayColorsArray.join(" ") + "\n---------------↑---------------```")
             await interaction.editReply({embeds: [embed]})
         }
 
