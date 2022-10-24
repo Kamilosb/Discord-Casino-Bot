@@ -31,16 +31,16 @@ module.exports = {
     ),
 
     async execute(interaction) { 
-        function getRandom(min, max) { // min and max included 
+        await function getRandom(min, max) { // min and max included 
             return Math.floor(Math.random() * (max - min + 1) + min)
         }
         
-        function delay(n){ // w sekundach
+        await function delay(n){ // w sekundach
             return new Promise(function(resolve){
                 setTimeout(resolve,n*1000)
             })
         }
-        
+
         const { options } = interaction
         const bid = parseInt(options.getNumber("kwota"))
         let userData = await Database.findOne({User: interaction.user.id})
@@ -77,17 +77,14 @@ module.exports = {
 
         let repeated = new Array(spinCount + firstSpin).fill(colorsArray).flat()
         let displayColorsArray = new Array()
-        if(!interaction.isReplied) await delay(0.5) // bo czasami chcialo edytowac zanim wyslalo LMAO
+        if(!interaction.isReplied) await delay(1) // bo czasami chcialo edytowac zanim wyslalo LMAO
 
         for(x=firstSpin; x<=spinCount + firstSpin; x++) {
-            if (spinCount > 30) {
-                await delay(0.4)
-            } else {
-                await delay(0.5)
-            } // jesli wiecej to krec szybciej bo ResidentSleeper
+            await delay(0.5)
             displayColorsArray.unshift(repeated[x])
             displayColorsArray.length = 5
             embed.setDescription("```---------------↓---------------\n       " + displayColorsArray.join(" ") + "\n---------------↑---------------```")
+            await console.log(repeated[x])
             await interaction.editReply({embeds: [embed]})
         }
 
