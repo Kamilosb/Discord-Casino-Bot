@@ -1,4 +1,3 @@
-
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
 const Database = require("../../Schemas/purse");
 //Red roulette numbers: 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, and 36.
