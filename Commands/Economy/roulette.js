@@ -1,11 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
 const Database = require("../../Schemas/purse");
-//Red roulette numbers: 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, and 36.
-//Black roulette numbers: 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, and 35.
-//jak w zegarze 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26.
 
-
-
+let colors = ("🟩,🟥,⬛,🟥,⬛,🟥,⬛,🟥,⬛,🟥,⬛,⬛,🟥,⬛,🟥,⬛,🟥,⬛,🟥,🟥,⬛,🟥,⬛,🟥,⬛,🟥,⬛,🟥,⬛,⬛,🟥,⬛,🟥,⬛,🟥,⬛,🟥") // od 0 do 36
+let colorsArray = colors.split(',');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,9 +16,7 @@ module.exports = {
             {name: 'zielony', value: 'zielony'},
             {name: 'czarny', value: 'czarny'},
             {name: 'czerwony', value: 'czerwony'}
-            
         )
-
     )
     .addNumberOption(options => options
         .setName("kwota")
@@ -60,12 +55,11 @@ module.exports = {
         }
 
         const embed = new EmbedBuilder().setColor("#4a72f5")
-        let colors = ("🟩,🟥,⬛,🟥,⬛,🟥,⬛,🟥,⬛,🟥,⬛,⬛,🟥,⬛,🟥,⬛,🟥,⬛,🟥,🟥,⬛,🟥,⬛,🟥,⬛,🟥,⬛,🟥,⬛,⬛,🟥,⬛,🟥,⬛,🟥,⬛,🟥") // od 0 do 36
-        let colorsArray = colors.split(',');
+
         
         //wysylanie wiadomości
         embed.setTitle("==========RULETKA==========")
-        embed.setDescription("loading...")
+        embed.setDescription("Loading...")
         interaction.reply({
             embeds: [embed]
         })
@@ -84,7 +78,8 @@ module.exports = {
             await delay(0.5)
             displayColorsArray.unshift(repeated[x])
             displayColorsArray.length = 5
-            await embed.setDescription("```---------------↓---------------\n       " + displayColorsArray.join(" ") + "\n---------------↑---------------```")
+            embed.setDescription("```---------------↓---------------\n       " + displayColorsArray.join(" ") + "\n---------------↑---------------```")
+            console.log(repeated[x])
             await interaction.editReply({embeds: [embed]})
         }
 
