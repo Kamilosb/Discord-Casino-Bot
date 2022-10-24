@@ -71,9 +71,11 @@ module.exports = {
             embeds: [embed]
         })
 
+        let spinCount = 0
+        let firstSpin = 0
         // animacja etc.
-        let spinCount = getRandom(4, 15)
-        let firstSpin = getRandom(5, 36)
+        spinCount = getRandom(4, 15)
+        firstSpin = getRandom(5, 36)
 
         let repeated = new Array(spinCount + firstSpin).fill(colorsArray).flat()
         let displayColorsArray = new Array()
