@@ -3,6 +3,7 @@ const { Guilds, GuildMembers, GuildMessages } = GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember } = Partials;
 require("dotenv").config()
 
+//teasdasdas
 const client = new Client({ 
     intents: [Guilds, GuildMembers, GuildMessages],
     partials: [User, Message, GuildMember, ThreadMember]
