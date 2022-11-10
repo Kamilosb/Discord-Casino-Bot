@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
 const Database = require("../../Schemas/levels")
 
-const embed = new EmbedBuilder().setColor("#32a852")
+
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,6 +13,7 @@ module.exports = {
         .setRequired(false)
         ),
     async execute(interaction) {
+        const embed = new EmbedBuilder().setColor("#32a852")
         const { options } = interaction
         const target = options.getMember("nick") || interaction.user
 
@@ -29,7 +30,7 @@ module.exports = {
             const targetId = target.id
             let userData = await Database.findOne({User: targetId})
             if(!userData) {
-                embed.setTitle("Posiadasz ").setDescription("0 Expa")
+                embed.setTitle("Posiadasz ").setDescription("0 Expa\noraz 0 wysłanych wiadomości")
                 userData = await Database.create({ UserName: target.username, User: target.id, Exp: 0, GuildId: interaction.guild.id, MessageCount: 0})
                 interaction.reply({
                     embeds: [embed]
@@ -37,10 +38,10 @@ module.exports = {
             } else {
                 let level = calculateLevel(userData.Exp)
                 let reqExp = roundUp(level, 0) * 100
-                embed.setTitle("Posiadasz ").setDescription(userData.Exp + " expa\noraz " + `${userData.MessageCount} wysłanych wiadomości`)
-                embed.addFields(
-                    { name: `Poziom` + " -> " + `${level | 0}`, value:`${userData.Exp}` + "/" + `${reqExp}`}
-                )
+                embed.setTitle(`Twój poziom wynosi: ${level | 0}`).setDescription("Posiadasz: " + userData.Exp + "/" + reqExp + " expa\noraz " + `${userData.MessageCount} wysłanych wiadomości`)
+                // embed.addFields(
+                //     { name: `Poziom` + " -> " + `${level | 0}`, value:`${userData.Exp}` + "/" + `${reqExp}`}
+                // )
                 interaction.reply({
                     embeds: [embed]
                 })
@@ -57,10 +58,7 @@ module.exports = {
             } else {
                 let level = calculateLevel(userData.Exp)
                 let reqExp = roundUp(level, 0) * 100
-                embed.setTitle(`${target.user.username} posiada `).setDescription(userData.Exp + " expa\noraz " + `${userData.MessageCount} wysłanych wiadomości`)
-                embed.addFields(
-                    { name: "Jego poziom-> " + `${level | 0}`, value:`${userData.Exp}` + "/" + `${reqExp}`}
-                )
+                embed.setTitle(`Poziom ${target.user.username} wynosi: ${level | 0}`).setDescription("Oraz posiada: " + userData.Exp + "/" + reqExp + " expa\ni " + `${userData.MessageCount} wysłanych wiadomości`)
                 interaction.reply({
                     embeds: [embed]
                 })
