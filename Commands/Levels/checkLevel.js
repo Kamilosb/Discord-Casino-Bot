@@ -38,7 +38,7 @@ module.exports = {
             } else {
                 let level = calculateLevel(userData.Exp)
                 let reqExp = roundUp(level, 0) * 100
-                embed.setTitle(`Twój poziom wynosi: ${level | 0}`).setDescription("Posiadasz: " + userData.Exp + "/" + reqExp + " expa\noraz " + `${userData.MessageCount} wysłanych wiadomości`)
+                embed.setTitle(`Twój poziom wynosi: ${level | 0}`).setDescription("Posiadasz " + userData.Exp + "/" + reqExp + " expa\noraz " + `${userData.MessageCount} wysłanych wiadomości`)
                 // embed.addFields(
                 //     { name: `Poziom` + " -> " + `${level | 0}`, value:`${userData.Exp}` + "/" + `${reqExp}`}
                 // )
@@ -58,7 +58,7 @@ module.exports = {
             } else {
                 let level = calculateLevel(userData.Exp)
                 let reqExp = roundUp(level, 0) * 100
-                embed.setTitle(`Poziom ${target.user.username} wynosi: ${level | 0}`).setDescription("Oraz posiada: " + userData.Exp + "/" + reqExp + " expa\ni " + `${userData.MessageCount} wysłanych wiadomości`)
+                embed.setTitle(`Poziom ${target.user.username} wynosi: ${level | 0}`).setDescription("Posiada on " + userData.Exp + "/" + reqExp + " expa\ni " + `${userData.MessageCount} wysłanych wiadomości`)
                 interaction.reply({
                     embeds: [embed]
                 })
